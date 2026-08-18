@@ -16,23 +16,21 @@ Skill 会根据输入自动选择以下模式：
 
 ## 安装
 
-将本目录发布到 GitHub 后，通用安装命令为：
+### 推荐：选择安装目标
 
 ```bash
-npx skills add https://github.com/OWNER/REPOSITORY --skill ascii-type-poster
+npx skills add DiqingWWW/ascii-type-poster --global
 ```
 
-可按使用的 Agent 选择全局安装：
+安装器会自动检测本机支持的 Agent，并提示选择安装目标。
+
+### 安装到所有已检测到的 Agent
 
 ```bash
-# Codex
-npx skills add https://github.com/OWNER/REPOSITORY --skill ascii-type-poster --agent codex --global
-
-# Claude Code
-npx skills add https://github.com/OWNER/REPOSITORY --skill ascii-type-poster --agent claude-code --global
+npx skills add DiqingWWW/ascii-type-poster --skill ascii-type-poster --agent '*' --global
 ```
 
-把 `OWNER/REPOSITORY` 替换为实际的 GitHub 用户名和仓库名。安装器会读取本目录的 `SKILL.md`；`openai.yaml` 为 OpenAI/Codex 界面的可选元数据。
+本 Skill 使用通用 `SKILL.md` 规范，可安装到 Codex、Claude Code、Cursor、OpenCode、Gemini CLI、GitHub Copilot、Cline 等兼容 Agent。安装器读取本目录的 `SKILL.md`；`openai.yaml` 仅为 OpenAI/Codex 界面提供可选元数据，不影响其他 Agent 安装。
 
 ## 使用方式
 
@@ -69,7 +67,7 @@ npx skills add https://github.com/OWNER/REPOSITORY --skill ascii-type-poster --a
 
 ## 兼容性与能力降级
 
-本 Skill 适用于支持 Agent Skills 格式、并能调用图像生成或编辑能力的 Agent。Codex 与 Claude Code 可使用上方对应的安装命令；其他兼容 Agent 可按其技能安装方式加载本目录。
+本 Skill 适用于支持 Agent Skills 格式的 Agent。使用上方统一命令即可选择一个或多个兼容 Agent，无需为 Codex、Claude Code、Cursor、OpenCode 等分别维护安装命令。
 
 如果当前 Agent 没有可用的图像工具，仍会根据输入返回可执行的生成提示词、构图说明、文字层级和参数配方，方便交给其他图像工具完成。若某项能力不支持，可手动指定画布、颜色或纹理来获得更可控的结果。
 
