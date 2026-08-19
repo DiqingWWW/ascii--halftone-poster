@@ -1,0 +1,4 @@
+interface:
+  display_name: "ASCII Halftone Poster"
+  short_description: "3:4 ASCII/halftone posters from images, subjects, or exact text"
+  default_prompt: "Use $ascii-halftone-poster to create a 3:4 ASCII/halftone poster from my uploaded image, described subject, or exact text, preserving exact supplied text with solid circular halftone, balanced negative space, and image–type fusion using an available compatible image generation or editing capability."
