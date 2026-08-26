@@ -1,283 +1,311 @@
 ---
 name: ascii-halftone-poster
-description: Create spacious Swiss-inspired ASCII and halftone posters from an uploaded image, a described subject, or exact supplied text. Use when Codex must choose a generative image transform, an explicitly pixel-safe transform, or a type-led composition while preserving source authority, exact typography, sparse composition, and auditable prompt/recipe consistency.
+description: Create editorial ASCII and halftone posters from an uploaded image, a described subject, or exact supplied text. Use when an agent must faithfully transform a source image, generate a new pictorial subject, or construct a type-led poster while preserving source authority, exact text, deliberate negative space, and visible discrete-mark rendering.
 ---
 
 # ASCII Halftone Poster
 
-Create one minimal raster poster from one primary authority: an uploaded image, a generated pictorial subject, or supplied text. Return the final poster when rendered, the exact final prompt, and a recipe that records only what was requested and completed.
+Create one poster from one primary authority. First lock the mode, then apply only the rules owned by that mode. Never let a later layout, typography, color, or negative-space preference override source authority or exact supplied text.
 
-## Mode and source authority
+## 1. Select one mode
 
-Select exactly one mode and keep its authority throughout:
+1. **Image Transform** — the user supplies an image that must remain the sole pictorial source.
+2. **Subject Generate** — no source image is supplied and the user describes a pictorial subject to generate.
+3. **Type-led** — no source image is supplied and exact text is intended to be the primary visual object.
 
-1. Select `Image Transform` when the user supplies an image. Treat that image as the sole pictorial source; extra text may direct treatment, layout, and type but may not replace, reinterpret, or supplement it with a new primary subject.
-2. Select `Subject Generate` without an image when the user describes a pictorial subject.
-3. Select `Type-led` without an image when supplied text is intended to be the visual object.
+Ask one concise question only when the image role, primary authority, required text, crop permission, or requested execution fidelity is materially ambiguous. Do not combine modes to avoid asking.
 
-Ask one concise question only when the image role, mode, exact required text, or another material interpretation is genuinely ambiguous. Preserve title, metadata, and user copy verbatim: never translate, rewrite, complete, or invent them unless authorized.
+## 2. Priority and override order
 
-## Material Contracts (blocking)
+Apply instructions in this order:
 
-Lock the mode-appropriate contract immediately after primary authority and before the composition thesis. `Image Transform` and `Subject Generate` use the Pictorial Material Contract; `Type-led` uses both the Type Material Contract and the shared mark prohibitions.
+1. explicit user requirements;
+2. mode and primary authority;
+3. exact text and authorized supporting copy;
+4. execution fidelity and permitted transformations;
+5. selected mark system and subject recognizability;
+6. mode-specific composition and typography;
+7. color, negative-space, and stylistic defaults;
+8. optional embellishment.
 
-### Pictorial Material Contract
+Lower items must yield to higher items. Percentages and style tendencies are calibration, never reasons to violate source fidelity, text identity, or the chosen mode.
 
-- For `Image Transform` and `Subject Generate`, the primary pictorial subject **must by default be reconstructed exclusively** from discrete, solid, individually distinguishable circular dots. Mark-only does not mean every internal region is filled: purposeful mark-free/open zones are allowed when they clarify the form.
-- Express source colors only through mark fill/background, and source identity only through silhouette, pose, key landmarks, and requested details. Preserve primary color relationships; omit secondary texture and background noise unless requested.
-- Forbid `continuous photo pixels/underlay`, `smooth painted/tonal regions` or `continuous gradients`, `fine stippling`, `print texture overlay`, `engraving`, `crosshatching`, any unrequested mark family, and `random-symbol mosaic`. If the original or any continuous layer is visible beneath the marks, fail.
-- Use one coherent base screen/pitch/angle per subject or major mass. Let radius or occupancy carry tone at roughly fixed pitch; allow only a few gentle macro bends or phase changes. Do not build separate screens for every edge, joint, fold, grain, or background speck, and do not use unstructured random scatter.
-- Verify separated circular dots at normal poster size. At thumbnail, check silhouette, key landmarks, and halftone reading—not every dot. A rigid global grid, perfectly straight rows through meaningful contours, or uniform spacing/diameter across unrelated regions is forbidden unless the user explicitly requests a mechanical grid. Only an explicit user request may replace circles with another discrete mark family; adapt the geometry-specific clauses while keeping exclusive reconstruction and no continuous underlay.
-- A generative restyle may use an available discrete-dot post-process/renderer, but it is optional; if the capability cannot satisfy this contract, do not deliver an image.
+## Blocking material contract
 
-### Type Material Contract
+Lock the mode and primary authority first, then lock the applicable material contract before making any composition decision.
 
-- `Type-led` has no pictorial subject, but it is not exempt from material enforcement. The supplied title itself must be visibly constructed from the selected ASCII/halftone marks across the primary letterforms; default to solid filled circular dots unless another discrete mark family is explicitly requested.
-- A conventional solid/vector glyph, solid glyph with dots merely overlaid or placed behind it, or a mark field limited to the background/outline while glyph interiors remain continuous fails. The font skeleton may guide contours, counters, and reading order, but the final primary letterform surface must be mark-based and the selected creative engine must operate on that mark field.
-- Preserve exact glyph identity, counters, strokes, and order through mark density, spacing, flow, fragmentation, or controlled fade. Supporting copy remains ordinary, clear text and is not subject to this title-material requirement.
+For Image Transform and Subject Generate, reconstruct the primary pictorial subject exclusively from discrete marks in the selected family. With the default system, every subject mark is a solid filled circle. Express source colors only through mark fill and the background, and express source identity through silhouette, pose, key landmarks, spatial relationships, and requested details. Never retain a continuous source layer beneath the marks.
 
-## Normalized Poster Spec
+Fail the material contract if the subject contains continuous photographic pixels or underlay, smooth painted or tonal regions, continuous gradients, fine stippling, a print-texture overlay or filter, engraving, crosshatching, an unrequested mark family, a random-symbol mosaic, hollow or ring marks when not requested, or an intact continuous/original layer beneath the marks.
 
-Create one `Normalized Poster Spec` before composing. Treat it as the single record from which prompt, render, and recipe are derived; do not maintain conflicting versions. Record at least:
+For Type-led, construct the primary title letterforms from the selected marks. A conventional solid/vector glyph, a solid glyph with dots overlaid, or marks limited to the background or outline fails. Supporting copy remains ordinary clear text.
+
+## 3. Mode contracts
+
+### Image Transform
+
+Treat the uploaded image as the sole pictorial authority. Preserve its identity, principal objects, pose, perspective, framing, spatial relationships, directional flow, and meaningful background structure. Do not replace, invent, relocate, duplicate, or anatomically redraw subjects merely to improve the poster layout.
+
+Use **Faithful Transform** by default:
+
+- derive the halftone layer from the supplied image;
+- preserve the complete source frame unless the user authorizes a crop;
+- when the source and poster ratios differ, pad or embed the source rather than silently recomposing it;
+- permit tonal simplification, selected-mark reconstruction, source-aware color mapping, scaling, padding, and separate typography layers;
+- adapt the poster around the source instead of redesigning the source around the poster.
+
+Use **Generative Restyle** only when the user explicitly permits reinterpretation, redraw, scene extension, replacement, or similar generative change. State that semantic fidelity rather than pixel fidelity is expected. Never relabel a generative redraw as a faithful transform.
+
+Use **Strict Raster Transform** when the user requires exact pixels or no redraw. Use deterministic raster operations only, record the source identifier and crop decision, and do not invoke a generative editor. If the required capability is unavailable, return a production prompt and recipe without claiming a completed image.
+
+Image Transform composition rules:
+
+- place title and supporting copy in relation to the existing source mass;
+- derive the layout from the source's actual mass, directional flow, hard edges, quiet areas, and landmarks; do not default to a reusable image-box-plus-caption template;
+- when a safe low-information contact zone exists, establish at least one visible image–type relation: partial overlap, edge crossing, contour echo, depth, continuation, or a shared alignment path;
+- title overlap is not mandatory when it would obscure identity. In that case, connect image and type through a shared axis, continued mark field, contour, or counterweight rather than leaving two unrelated rectangles;
+- do not shrink, crop, extend, recolor, or move source content merely to reach a title/image ratio or negative-space percentage;
+- choose the canvas substrate independently from a local dark edge, tube, frame, or vignette. Do not extend a dark source border into a dark poster canvas by default; use a dark canvas only when the user requests it or the source's overall exposure and visual mass clearly support it;
+- preserve source hue, saturation, brightness range, local contrast, and the optical weight of major color fields before considering any accent. Do not globally darken, desaturate, or flatten the source. Selective contrast enhancement is allowed only when it protects midtones and does not make the transformed image perceptually darker than the source.
+
+### Subject Generate
+
+Treat the described subject as the sole pictorial authority. Generate recognizable anatomy, contour, material, attributes, and action without unrelated scenery or props unless requested.
+
+Before percentages, write one concise composition thesis containing: the focal anchor and why it dominates; primary/secondary scale hierarchy; direction or action; the viewing path (`eye first lands on anchor → what carries it away → what brings it back`); the intended shape of external quiet space; edge pressure; and the asymmetric counterweight. Favor a content-derived relationship over a centered icon or equal-weight repetition. Use optical judgment, not a mathematical centroid.
+
+Subject Generate composition defaults:
+
+- build one connected image–type cluster with deliberate asymmetry or directional tension when appropriate;
+- let title cross a sparse subject edge when this strengthens the thesis and preserves key anatomy;
+- use external quiet space around the cluster; approximately 55%–65% is a calibration target, not a pass condition;
+- title visual mass may calibrate near 0.4–0.6 of image mass, but optical balance outranks the number;
+- vary scale, orientation, stage, or position in natural groups; do not produce equal-weight icon grids.
+
+### Type-led
+
+Treat exact supplied text as the primary visual. Add no pictorial subject. Construct the primary title from the selected ASCII/halftone marks; a solid glyph with dots merely overlaid, behind it, or limited to its outline fails.
+
+Choose one semantic engine and apply it to the mark field while retaining exact contours, counters, strokes, and reading order:
+
+- `weave/interlock`
+- `compression`
+- `erosion/fade`
+- `echo/repetition`
+- `flow`
+- `fragment/reassemble`
+- `counterfield/void`
+- `modular stack`
+- `semantic gesture`
+
+Choose canvas ratio, lineation, axis, scale, and color from the text’s meaning. Do not inherit image/title ratios, image overlap rules, source-color rules, or Image Transform background inference.
+
+## Optical balance process
+
+After source authority and the material contract are locked, record a concise optical ledger in `mass_profile`:
+
+- shape, occupied area, contour, and crop;
+- luminance and contrast;
+- saturation and temperature;
+- mark radius, density, spacing, and flow;
+- typography width, weight, line count, script complexity, and axis;
+- semantic salience such as faces, eyes, and readable text;
+- edge leverage and direction vectors;
+- the shape of external quiet space.
+
+For Image Transform, derive the viewing path and counterweight from the existing source; never invent a new composition thesis that overrides it. For Subject Generate, the thesis defines the intended path. For Type-led, derive the path from text semantics and glyph structure.
+
+Before rendering, reduce the design to a few gray blocks or dot fields representing anchor, title, point field, and quiet-space shape. Record `overlap_profile` with contact region, depth, direction, and title-block axis. At thumbnail, squint, and grayscale views, confirm the intended first focus, exit direction, and return path before using percentages as calibration.
+
+## 4. Shared mark system
+
+Default to solid filled circular halftone. Use character ASCII, square dots, line screens, hollow marks, or another discrete family only when explicitly requested.
+
+For pictorial modes:
+
+- reconstruct the primary subject from visible discrete marks with no continuous photographic or painted underlay;
+- carry source or subject color only through mark fill and background; carry identity through silhouette, pose, key landmarks, spatial relationships, and requested details within the mark-only reconstruction;
+- use one coherent base rhythm with a broad, continuous, visibly natural range of dot sizes and purposeful open zones. "Coherent" means controlled variation, not similar-sized dots or a uniform mechanical lattice;
+- derive dot diameter from a lightly smoothed tone field and local structure. Reduce dot size in edges, faces, branches, roof lines, masonry, and other landmark zones; reserve larger dots for broad low-detail tonal fields;
+- choose pitch and maximum diameter from the thinnest meaningful landmark. At 100% output size, no dot may swallow a required landmark and adjacent large dots must remain separated; aim to describe a thin retained feature with at least 2–3 marks where the source resolution permits;
+- allow substantially larger dots in broad low-detail tonal masses when the source requires visual density. Reduce the absolute pitch before limiting the expressive diameter range, so large relative dots can coexist with small absolute marks and protected detail. Keep neighboring dots separate and let the radius distribution span visibly small, medium, and large values rather than clustering near one mean;
+- preserve the source frame and hard geometry independently from the mark field. Do not apply row-wise or column-wise sine displacement, wavy masks, or dot-envelope contours to straight walls, frames, horizons, or circular openings. Render with bleed and clip back to the exact source mask when needed;
+- preserve silhouette, pose, key landmarks, and requested details; omit secondary texture and background noise by default;
+- let gentle macro changes follow major contour, material, or action, but do not assign a separate screen to every edge, fold, joint, or speck;
+- at normal poster size, marks should remain separated; at thumbnail, judge silhouette, landmarks, and halftone reading rather than individual dots;
+- reject uniform filter-like screens, random scatter, near-touching bubble/cell clusters, merged perforation fields, and subjects with no internal breathing room;
+- reject continuous photo pixels or underlay, smooth painted/tonal regions, continuous gradients, fine stippling, print-texture overlays or filters, engraving, crosshatching, unrequested mark families, random-symbol mosaics, intact continuous/original layers beneath marks, and hollow/ring marks unless requested;
+- choose mark polarity from the source exposure and intended substrate. Preserve the source's perceived lightness and contrast at thumbnail size; do not let paper gaps wash out a light-background image or let a dark substrate crush midtones.
+
+For Type-led, apply the same mark-family discipline to the title letterforms themselves. Supporting copy remains ordinary clear text.
+
+## 5. Typography and image–type relation
+
+Preserve all supplied text verbatim, including case, punctuation, CJK forms, and reading order. Inspect for missing glyphs, substitutions, tofu, clipped strokes, and garbling.
+
+Choose font personality from subject material, motion, title semantics, and script support. Record a short rationale using only relevant traits such as width, weight, contour, rhythm, or terminals. Do not force expressive typography when it conflicts with source fidelity or glyph accuracy.
+
+When the user asks for artistic or theme-responsive lettering, a generic default sans/hei font without a documented reason fails. Select a script-capable display face or deliberately transform spacing, lineation, scale, rhythm, or stroke texture to express the theme while preserving exact readable glyphs. Unrelated themes must not automatically reuse the same neutral font and layout skeleton.
+
+For Image Transform, typography follows the source. It may sit outside the source, touch it, or overlap a sparse edge. If safe interaction space exists, use at least one explicit relation; if it does not, record why and create a non-overlapping structural link.
+
+Prefer a coherent title color when it already supports the composition. Color variation is allowed when it has a clear material or semantic role, but do not mechanically use the source-image boundary or halftone mask as a hard color-split line. When a contact region changes, favor a gradual halftone fade, loss of mark coverage, or another source-responsive transition over automatic inversion for contrast.
+
+For Subject Generate, choose one active relation: `counterweight`, `continuation`, `interruption`, `containment`, `bridge`, `depth`, or `structural echo`.
+
+In either pictorial mode, keep the title primarily solid. When a local raster transition strengthens the chosen relation, retain roughly 80%–90% solid title ink and transform only a specified 10%–20% contact region into the same mark family. The transition may preserve the ink color or introduce a purposeful color change, but it should read as a gradual material transformation rather than an automatic hard cut at the image boundary. Treat these figures as visual calibration. Use no blur, haze, glow, opacity wash, white keyline, outline, matte fringe, faux knockout, or shadow.
+
+## 6. Supporting copy
+
+Record supporting copy as one state:
+
+- `required` — render supplied copy verbatim;
+- `allowed` — render at most one or two user-provided or explicitly authorized generated lines;
+- `forbidden` — omit it and invent nothing.
+
+If the user supplies no supporting copy and gives no authorization to generate it, use `forbidden`. Keep support text clear and free of ASCII/halftone distortion.
+
+## 7. Color and background
+
+Assign every color a role. Use this authority order:
+
+1. explicit user colors;
+2. Image Transform source colors and optical lighting;
+3. subject material and recognition;
+4. title/background contrast;
+5. optional thematic accent.
+
+Do not impose a color-count ceiling. High saturation is optional. Do not introduce an unassigned title accent; choose the title ink from the active palette. A "local transition" refers primarily to a change from solid ink into discrete marks or reduced mark coverage and does not imply a second title color. If a deliberate transition also changes color, assign that additional color an explicit role in the palette. For Image Transform, do not replace source colors merely to obtain a more fashionable palette.
+
+## 8. Normalized Poster Spec
+
+Create one compact record and derive prompt, render decisions, recipe, and QA from it:
 
 ```yaml
 mode: Image Transform | Subject Generate | Type-led
 primary_authority: uploaded_image | generated_subject | supplied_text
-visual_material_contract: pictorial contract for Image Transform/Subject Generate or shared mark prohibitions for Type-led; default discrete solid circular dots or one explicitly requested alternative mark family; mark-only with purposeful open zones; source colors via mark fill/background; identity via silhouette/pose/key landmarks/requested details; coherent base rhythm; normal-size mark evidence and thumbnail silhouette/halftone evidence
-type_material_contract: for Type-led, primary title letterforms are mark-constructed; no solid/vector glyph or dots merely overlaid/behind; font skeleton guides contours/counters/order; selected engine operates on the mark field; supporting copy stays clear
-source: identifier, dimensions, hash when strict
-execution_path: Generative Restyle | Pixel-safe / Strict Raster Transform
-subject_and_preserved_details: silhouette, pose, key identity landmarks, requested details, primary color relationships; secondary texture/background noise omitted by default
-title: exact verbatim text
-title_relation: counterweight | continuation | interruption | containment | bridge | depth | structural_echo
-title_layer: foreground, above image
-title_image_ratio_target: 0.4-0.6 calibration for visual-subject modes
-title_transition: none | specified region, mark family, axis, anchor rule
-font_personality: width, weight, contour, rhythm, terminals, script coverage, rationale
-creative_engine: one Type-led engine or none
-supporting_copy: required | allowed | forbidden; exact text, provenance, line count
-canvas_and_quiet_space: ratio chosen for thesis; external quiet target about 55%-65%
-background: edge_evidence -> inferred canvas; negative-space areas
-color_roles: role, color, and authority for each color
-halftone: mark system, size/occupancy, coherent base pitch/angle, limited macro flow, purposeful open zones, background polarity
-mass_profile: optical ledger covering shape/area+contour/crop, luminance/contrast, saturation/temperature, dot radius/density/spacing/flow, typography width/weight/line count/script complexity/axis, semantic salience (face/eyes/text), edge leverage, direction vectors, negative-space shape
-overlap_profile: region, depth, direction, title block axis, edge pressure, and critical details kept clear
-qg_evidence: actual visual observations for blocking Material Gate and Balance Gate; executed/pass/failure evidence and retry outcome
-constraints: task-relevant prohibitions
+execution_path: Faithful Transform | Generative Restyle | Strict Raster Transform | Generative
+source_policy: complete frame | authorized crop | not applicable
+exact_title: verbatim text
+supporting_copy: required | allowed | forbidden; exact text and provenance
+mark_system: family, base rhythm, size bands, polarity, purposeful open zones
+composition: mode-specific thesis or source-adaptive placement
+mass_profile: optical ledger for shape, tone, color, mark field, typography, semantic salience, edge leverage, vectors, and quiet-space shape
+overlap_profile: contact region, depth, direction, and title-block axis
+typography: font rationale, relation, layer order, optional local transition
+color_roles: named roles and authority
+constraints: only task-relevant prohibitions
+qa_evidence: Material Gate and Balance Gate observations, failures, and retry outcome
 ```
 
-If a field is unknown, resolve it from the user or mark it unresolved; do not silently fill it. Copy the same values into the prompt, render decisions, and recipe. A mismatch between spec, prompt, recipe, or output is a failure.
+Resolve only genuinely blocking unknowns with the user. Do not silently invent fields or maintain conflicting prompt and recipe versions.
 
-## Execution Path
+## 9. Prompt Compiler
 
-Choose the path immediately after mode selection and state it in the recipe.
+Compile by mode. Do not use one universal instruction order.
 
-### Image Transform
+### Image Transform compiler order
 
-- Select **Generative Restyle** by default. Use ImageGen or another generative image capability, declare that redraw is allowed, preserve semantic identity, major composition, perspective, pose, and requested details **within mark-only reconstruction** as faithfully as the capability permits, and never claim exact pixels. Use an available discrete-mark post-process/renderer when useful, but never assume it is available or required.
-- Select **Pixel-safe / Strict Raster Transform** only when the user explicitly requires `exact pixels`, `no redraw`, or equivalent pixel preservation. Use deterministic extraction, crop, contrast, color, and circular-dot halftone operations on the supplied raster; the renderer must still satisfy the Pictorial Material Contract. A script is optional, not required. Record source identifier/path, dimensions, and SHA-256 (or available content hash), embed the complete source or use only a user-approved crop, and do not invoke ImageGen or any generative redraw.
-- If the strict capability, complete source, approved crop, or deterministic renderer is unavailable, state plainly that the strict transform cannot be completed. Stop with prompt, recipe, and recommended specifications; never silently fall back to generative restyle.
+1. Declare the uploaded source as sole pictorial authority and name the execution path.
+2. State the blocking material contract: reconstruct through the selected marks, carry color through mark fill/background only, and prohibit a continuous source underlay.
+3. State the source frame/crop policy and permitted transformations; prohibit unapproved redraw, replacement, relocation, scene extension, and recomposition.
+4. State source-adaptive composition and viewing path derived from existing mass, landmarks, edges, and quiet-space shape.
+5. State exact title and supporting copy, then source-adaptive typography placement and any optional low-information overlap.
+6. State canvas/padding/background treatment derived from source evidence and add only task-relevant prohibitions.
 
-### Subject Generate and Type-led
+Never lead an Image Transform prompt with a new composition thesis, title ratio, negative-space percentage, fashionable palette, or typography gesture. Those are subordinate to source authority.
 
-Use generative capability by default. For `Type-led`, preserve supplied text as the primary visual and add no pictorial subject. If the required capability is unavailable, return a prompt and recipe without claiming a rendered image.
+### Subject Generate compiler order
 
-## Creative decision and composition thesis
+1. State the generated subject as sole pictorial authority and specify defining anatomy, material, attributes, and action.
+2. State the blocking material contract and simplification priorities: mark-only reconstruction, with color through mark fill/background only and no continuous underlay.
+3. State the composition thesis: anchor, hierarchy, direction, viewing path and return, title counterweight, edge pressure, and quiet-space shape.
+4. State exact title, font rationale, image–type relation, and optional local transition.
+5. State color roles and calibrated external quiet space.
+6. Add only task-relevant prohibitions.
 
-Write one composition-thesis sentence before using any percentage. State the anchor and why it dominates, the primary/secondary scale hierarchy, direction or action, the viewing path (`eye first lands on anchor → what carries it away and brings it back`), the quiet-space shape, edge pressure, and the asymmetric counterweight that makes the cluster intentional. Use optical judgment, not a pure mathematical centroid.
+### Type-led compiler order
 
-Record a concise optical mass ledger in `mass_profile`: shape/area plus contour and crop; luminance/contrast; saturation/temperature; dot radius/density/spacing/flow; typography width/weight/line count/script complexity/axis; semantic salience (face, eyes, text); edge leverage; direction vectors; and negative-space shape. Before rendering, run a balance pass with only a few gray blocks/dot fields to estimate anchor, title, point-field, and quiet-shape weights. Define `overlap_profile` (region, depth, direction, and title-block axis), then confirm at thumbnail, squint, and grayscale that the first focus and eye path hold.
+1. State exact text as sole visual authority and forbid pictorial subjects.
+2. State the blocking Type Material Contract: the letterforms themselves are constructed from the selected marks, with contours, counters, strokes, and order preserved and no solid glyph underlay.
+3. State the selected semantic engine, composition/viewing path, lineation, axis, scale, and quiet-space relation.
+4. State color roles and authorized supporting copy.
+5. Add only task-relevant prohibitions.
 
-For `Image Transform` and `Subject Generate`:
+In every mode, omit internal field names, discarded alternatives, checklists, unresolved questions, and inapplicable numeric targets. Keep the prompt concise enough that mode authority and material requirements remain dominant.
 
-- Put the title in the foreground layer, above the image, and make it physically cross into the image/halftone outer edge. Do not leave it only below, beside, or behind the image. Overlap the outer mark field, not identity-defining eyes, facial features, anatomy, logos, or other critical source details.
-- Calibrate title visual mass relative to image around `0.4–0.6`; use this only as a check after the thesis, never as a template or guarantee of balance. Keep the title/image relationship active rather than arranging two independent blocks.
-- Keep roughly `55%–65%` of the *external canvas* visually quiet around the cluster; this is calibration, not a guarantee. Record the quiet-space shape. Black or dark areas that carry no marks count as negative space; internal holes, counters, and subject voids do not.
+## 10. Workflow and output
 
-For `Type-led`, let exact text occupy a thesis-appropriate share of the canvas while retaining substantial surrounding quiet. Do not prescribe a fixed `3:4`, middle-lower, two-line uppercase, cyan, or right-edge-fade treatment; choose ratio, lineation, axis, and color from the spec.
+1. Lock mode and authority.
+2. Choose execution path and permitted transformations.
+3. Lock the mode-appropriate blocking material contract.
+4. Create the Normalized Poster Spec, including `mass_profile` and `overlap_profile`.
+5. Make only mode-owned composition, typography, mark, and color decisions; run the pre-render optical balance pass.
+6. Compile in the mode-specific order and render with an explicitly bound source when applicable.
+7. Run the blocking Material Gate, then the blocking Balance Gate, then the remaining mode checks. Retry once with one targeted correction when a correctable gate fails.
+8. If the capability cannot satisfy source fidelity, exact text, selected-mark rendering, or optical balance, return prompt, recipe, and recommended specifications without claiming a qualified poster.
 
-Use a single coherent image–type cluster. Vary scale, position, orientation, stage, crop, or directional movement when the subject calls for it; do not make equal-weight duplicate icons. Keep quiet space around the cluster rather than as a dead gap between image and title. Do not add frames, panels, mockups, paper edges, paper texture, or decorative color blocks.
+Return the final poster when qualified, the exact final prompt, and a concise recipe containing mode, authority, execution path, source/crop policy, exact text, support state, mark system, composition decision, typography relation, color roles, and observed QA result.
 
-## Typography and image–type fusion
+## 11. Quality Gates
 
-Choose the font from the theme's material, action, contour, title semantics, and composition direction. Select and state a personality such as grotesk, geometric, condensed, humanist, blunt display, or another justified family. In the recipe explain its **width, weight, contour, rhythm, terminals, and script coverage**, plus why those traits serve the subject and thesis. If replacing it with a generic neutral sans would preserve the same theme, relationship, and motion, the typography decision fails; choose again.
+Run the applicable blocking gates in the order below. A prompt promise is never evidence of a passing render.
 
-Support every supplied glyph, including CJK and other Unicode scripts. Inspect for tofu, missing glyphs, incorrect CJK forms, garbling, clipped strokes, substitutions, and reading-order errors. Treat exact title identity, punctuation, metadata, and glyph order as hard requirements.
+### Blocking Material Gate
 
-Choose one explicit image–type relationship: `counterweight`, `continuation`, `interruption`, `containment`, `bridge`, `depth`, or `structural echo`. Align to visual mass and directional tension rather than a default side. For `Image Transform` and `Subject Generate`, keep title text clean and solid by default, then apply the local transition below only when it strengthens the selected relationship. For `Type-led`, apply the Type Material Contract to the whole primary title and never render a conventional solid/vector title.
+For Image Transform and Subject Generate, cover the title and inspect representative shadows, midtones, highlights, contours, and landmarks at 100% size and thumbnail size. Pass only when the pictorial subject is carried by the selected discrete marks and its colors appear only through mark fill/background.
 
-### Selective title raster transition
+Fail immediately if any primary subject region contains continuous photography or underlay, smooth tone or gradient, painted fill, fine stippling, print-texture overlay/filter, engraving, crosshatching, an unrequested mark family, a random-symbol mosaic, hollow/ring marks when not requested, or a visible original layer beneath the marks. Also fail excessive coverage, merged or near-touching bubble fields, loss of internal breathing room, or mark sizes that erase required landmarks.
 
-- Keep the title always above the image. For `Image Transform` and `Subject Generate`, 80%–90% of the total title ink area remains continuous solid glyphs; only 10%–20% of the total title ink area, measured as `transition ink area ÷ total title ink area`, may be rasterized into the same halftone/ASCII marks in a specified interaction/overlap region. Do not rasterize the whole title unless the user explicitly requests it. Only the specified local region may receive the image's point field.
-- In that region, convert local title marks to the **same** halftone/ASCII mark family as the image. Let mark size, spacing, and density gradually fade along an axis chosen by the composition (diagonal, radial, contour-following, or another justified axis), never a fixed right or bottom axis.
-- Preserve at least one solid or otherwise legible glyph anchor per word unless the recorded text treatment explicitly permits a more abstract wordform. Keep the exact text identity even when local display legibility becomes expressive or faded.
-- Prohibit blur, opacity haze, glow, soft-focus wash, and any transition that reads as mist. Do not let image marks enter title glyphs outside the specified transition region.
+For Type-led, inspect every primary word at 100% and thumbnail size. Fail if a word reads primarily as a conventional solid/vector fill, if dots merely texture an intact glyph, or if marks exist only behind or around the letterform. The selected engine must operate on the mark-built glyph while exact contours, counters, strokes, and reading order remain recoverable.
 
-## Type-led creative engines
+Record concrete observations in `qa_evidence`. On failure, make one material-only correction and rerender once. If it fails again, return the prompt, recipe, and specifications without presenting the image as qualified.
 
-For every `Type-led` recipe, select exactly one main engine from the following according to the text's semantics, and explain that choice. The engine operates on a mark-constructed title, not on a solid/vector glyph; it changes mark density, flow, spacing, fragmentation, or counters while preserving exact glyph structure. Keep the supplied words primary and add no pictorial subject:
+### Blocking Balance Gate
 
-- `weave/interlock` — cross letter stems or counters as semantic linkage;
-- `compression` — tighten width/spacing to enact pressure, density, or urgency;
-- `erosion/fade` — remove marks along a meaningful semantic loss or decay axis;
-- `echo/repetition` — repeat controlled offsets to enact memory, sound, or recurrence;
-- `flow` — bend baseline, rhythm, or mark direction to enact motion;
-- `fragment/reassemble` — separate and reconnect exact glyph fragments around a readable path;
-- `counterfield/void` — let counters and negative space carry the semantic force;
-- `modular stack` — stack exact glyph modules to enact system, hierarchy, or accumulation;
-- `semantic gesture` — make one justified stroke, tilt, cut, or rhythm enact the verb or idea.
+Inspect the full poster and thumbnail with title on and off, in color and grayscale, then inspect edge pressure and direction vectors. Use `mass_profile` and `overlap_profile` to verify that the intended anchor is seen first, the eye path leaves it through a declared carrier, and a counterweight or quiet-space shape brings attention back into the frame.
 
-Do not let an engine collapse into unrelated random texture or a conventional title over a texture.
+Intentional asymmetry passes only when hierarchy, direction, edge pressure, and the return path remain explainable after color is removed. Fail when a secondary element steals first focus, image and title push toward the same edge, the eye exits without returning, one side carries undeclared dense or saturated weight, quiet space is shapeless residue or a dead gap, the title merely grazes the subject, or mark overcoverage changes the declared balance.
 
-## Supporting copy states
+Make one balance-only correction and rerender once. If the same failure remains, do not deliver the image as qualified.
 
-Classify supporting dates, names, locations, captions, and footer copy as exactly one state in the spec and recipe:
+### Shared gates
 
-- `required`: render the user-supplied copy verbatim, with no correction or translation;
-- `allowed`: render at most one or two supporting lines, and record whether each is `user-provided` or `authorized-generated`; do not generate without that authorization;
-- `forbidden`: omit it and do not invent filler, CTA, branding, logo, watermark, or tool signature.
+- Exactly one mode and primary authority are evident.
+- Exact title and authorized support copy are correct; no unauthorized text, subject, panel, frame, logo, watermark, or signature appears.
+- The selected mark family is visually real rather than a continuous image with a texture overlay.
+- Marks retain a coherent rhythm and internal breathing room without mechanical filter grids or crowded bubble clusters.
+- Dot size contains several perceptible levels and changes continuously with tone and structure; it is neither uniform nor randomly unrelated to the image.
+- At 100% size, named landmarks remain recognizable and no oversized or merged dots erase the smallest important contours.
+- At thumbnail size, the transformed image preserves the source's overall exposure, major color-field weight, and focal contrast. It must not look globally darker, paler, flatter, or less saturated unless explicitly requested.
+- Color roles are traceable to the stated authority; no random accent appears.
+- At thumbnail, squint, grayscale, title-on/title-off, and edge/direction views, the declared first focus and exit/return path remain evident.
+- Prompt, recipe, and output agree.
 
-Keep supporting copy clear, complete, and correctly ordered. Never apply ASCII/halftone fade, blur, haze, glow, or expressive illegibility to support text.
+### Image Transform gates
 
-## ASCII / halftone material
+- Removing typography still reveals the supplied source rather than a redesigned or regenerated substitute.
+- Principal objects, identity, pose, perspective, framing, spatial relationships, and meaningful background structure remain faithful within the selected-mark abstraction.
+- Complete frame or authorized crop is honored. Ratio and quiet-space preferences did not force an unapproved crop, subject relocation, scene extension, or background replacement.
+- Straight source edges remain straight, circular openings remain circular, and the exact rectangular source mask has no periodic waves, scallops, or displaced-edge gaps.
+- The canvas substrate does not inherit darkness from a local source border alone. Midtones remain open, and selective contrast changes do not crush shadows or turn a normally exposed source into a dark poster.
+- Faithful and strict paths contain no generative redraw. Generative Restyle is used only with explicit permission and is labeled accurately.
+- Typography placement and color follow the source rather than forcing Subject Generate composition defaults. When safe contact space exists, at least one visible image–type interaction is present; the result must not read as an isolated photo rectangle plus a detached label.
+- The typography recipe names a theme-relevant font or shaping rationale. An unmodified generic system font is not sufficient when expressive lettering was requested.
 
-For `Image Transform` and `Subject Generate`, default to `solid filled circular halftone`: every subject mark must be a discrete, solid, individually distinguishable circular dot. Use square-dot halftone, line screen, character ASCII, hollow/ring marks, or another mark family only when the user explicitly requests it; then use that one family exclusively and adapt the material checks without permitting a continuous image underneath. Never substitute fine stippling, engraving, crosshatching, print texture, smooth tone, or random symbols for the selected system. For `Type-led`, the title letterforms themselves must be reconstructed from the selected marks; it has no pictorial subject, but it still runs the Type Material Gate.
+Inspect every Image Transform at both 100% and thumbnail size. Record: frame/hard-edge integrity, dot-size range and transition, landmark recognition, absence of a mechanical lattice, image–type relation, and font rationale. One failed item requires one targeted retry; a repeated failure cannot be reported as qualified.
 
-Use one coherent base screen/pitch/angle per subject or major mass, changing it gently only in a few macro zones. Keep a small set of size bands; at roughly fixed pitch, let one primary variable—dot radius or occupancy—carry tone. Local flow may follow large contour, pose, or action, but never give every edge, joint, fold, grain, or background speck its own field. Mark-only allows purposeful open zones and does not mean every region is filled. On a dark background, shadows are open/sparser and marks carry highlights; on a light background, highlights are open and dots carry shadows. Never make shadows both larger and denser by default.
+### Subject Generate gates
 
-At normal poster size verify separated dots; at thumbnail inspect silhouette, key landmarks, and halftone reading, not individual-dot visibility. Avoid high coverage, near-touching or merged bubble/cell/perforation clusters, many adjacent sizes, and any subject with no internal breathing room. Preserve recognition in this order: source identity or exact letterforms, silhouette/contour, pose and direction, key internal structure, then secondary texture and background detail (which are omitted by default). Use the same mark family in a title transition, with parameters recorded rather than guessed.
+- Defining anatomy, material, attributes, and action remain recognizable.
+- The composition thesis is visible in anchor, hierarchy, direction, title relation, and shaped external quiet space.
+- Repeated subjects are intentionally varied rather than equal-weight copies.
+- Title integration does not obscure identity-defining anatomy.
 
-## Color roles and authority
+### Type-led gates
 
-Assign each chosen color a role (`background`, `primary visual`, `title`, `supporting type`, `accent`, or another named role) and record why it exists. Apply this authority order:
+- Exact supplied text remains the primary visual and no pictorial subject appears.
+- Primary letterforms are visibly mark-constructed, not solid/vector glyphs with decorative dots.
+- The selected engine is semantically justified and operates on glyph structure while preserving recoverable contours, counters, strokes, and reading order.
 
-1. explicit user color instructions;
-2. `Image Transform` source colors and optical tone/lighting restoration;
-3. material appropriateness and recognition;
-4. high-saturation colors that carry the theme;
-5. neutral contrast such as black text on white or white text on black;
-6. other auxiliary colors needed by a named role.
-
-Delete any fixed three-color ceiling and any Type-led two-saturated-color ceiling. With no source image, high saturation plus black/white may be a tendency, not a mechanical obligation. Preserve source colors when identity-bearing or requested **within mark-only reconstruction**: express them only as selected-mark fill and/or background. Visual-mode title color must be selected from the already established active palette/source/subject color roles, including existing neutral black or white; choose it to serve contrast, optical balance, and theme, never introduce a new title accent without a role. A local title raster transition inherits or bridges the image mark colors it touches and does not invent another accent. Supporting copy uses an existing neutral role. If colors reduce title visibility, change type color only within the active roles, then position, overlap, local space, or mark density before adding outlines. Never introduce a random accent or unassigned color.
-
-## Background inference for Image Transform
-
-Before defaulting to white, inspect the source edges and surrounding structure. Record the evidence and inference in the recipe as `edge evidence → background`: continuous dark edge, tube, dark frame, or vignette may naturally extend into a black/dark canvas while retaining a central bright region. Extend the existing field; do not create a second circular ring, artificial frame, or isolated vignette. Treat resulting black quiet areas as valid external negative space. Use white only when edge evidence and the thesis support it.
-
-## No white edge and text priority
-
-Explicitly prohibit `thin white keyline`, `inner stroke`, `outer stroke`, `matte fringe`, `halo`, `glow`, `faux knockout`, a white gap cut out for contrast, outline-like bright anti-aliased edges, and shadows. Keep text edge color identical to its fill; do not fake separation with a light border. If contrast fails, permit local unreadability, change color, position, overlap, mark density, local halftone treatment, or transition extent, but never add a stroke or bright edge.
-
-Keep **exact text identity** immutable. For display text, choose `clear` or `expressive/faded` legibility; `Image Transform` and `Subject Generate` may sacrifice local display readability for fusion, while `Type-led` may become artistic only when it remains tied to exact glyph structure and the selected engine, never unrelated random texture. Keep supporting copy always clear. If the user says recognizability is not the priority, prioritize no-edge fusion and the thesis, but do not alter exact text identity or source authority.
-
-## Prompt compiler and recipe
-
-Compile one coherent production prompt from the Normalized Poster Spec. Make the first sentence the exact composition thesis. For `Image Transform` and `Subject Generate`, make the **second sentence** a concise abstraction/sampling plan: preserve silhouette, pose, key landmarks, requested details, and primary color relationships; omit secondary texture/background noise; allow purposeful open zones; use one coherent base rhythm and background-polarity tone mapping. Follow it with the short non-negotiable material sentence: `The primary pictorial subject must be reconstructed exclusively from discrete, solid circular dots with no continuous photo pixels/underlay; keep dots separated at normal poster size and check silhouette, key landmarks, and halftone reading at thumbnail; use no random scatter, bubble/cell clusters, or unrequested mark family.` For `Type-led`, state `The supplied title itself must be reconstructed from discrete, solid, individually distinguishable circular dots in a locally adaptive, structure-driven field; no conventional solid/vector glyph, dots merely overlaid or behind solid glyphs, or continuous glyph interiors; preserve exact contours, counters, strokes, and reading order; operate the selected creative engine on the mark field.` Only when the user explicitly requests another discrete mark family, replace the circle-specific words with that family while keeping every other material prohibition. Then write preservation and color wording explicitly as **within mark-only reconstruction**, followed by:
-
-1. mode, primary authority, execution path, anchor, scale hierarchy, direction, viewing path, quiet-space shape, edge pressure, tension, counterweight, and image strategy;
-2. silhouette, pose, key identity landmarks, and requested details preserved **within mark-only reconstruction**; primary color relationships preserved **within mark-only reconstruction** through mark fill/background only; secondary texture/background noise omitted unless requested;
-3. font personality (width, weight, contour, rhythm, terminals, script support), exact title, glyph safety, layer order, fusion relation, and any selective transition region/axis/anchors; for visual modes, the 80%–90% solid / 10%–20% local mark transition measured against total title ink area;
-4. color roles, active palette inheritance for title/supporting copy, and required optical-tone preservation;
-5. circular-dot radius, spacing, density, fill, coherent base rhythm, limited macro flow, and no mechanical global grid (or the exact Type-led engine operating on the mark field);
-6. ratio, external quiet-space calibration, title-to-image calibration, `mass_profile`, `overlap_profile`, and background edge inference;
-7. only the short, task-relevant prohibitions from the spec.
-
-Mark all supplied title and supporting copy as verbatim. Do not include discarded alternatives, questions, checklist prose, inapplicable numbers, or internal paths unless an active tool requires them. Put a fade, row count, highlight, overlap, color, or other output feature in the prompt only when the spec requires it. Claim that feature in the recipe only when the final render visibly implements it. Keep the material contract and balance decisions identical across prompt, recipe, and output; if any diverges, fail and correct the record before delivery.
-
-## Workflow
-
-1. Detect the source and lock exactly one mode and primary authority.
-2. Lock the Pictorial Material Contract or Type Material Contract before composing; Type-led is not a material exemption.
-3. Create the Normalized Poster Spec, including exact text, support state, execution path, edge evidence, mass/overlap profiles, and prohibitions.
-4. Write the composition thesis with viewing path, quiet-space shape, edge pressure, and asymmetry before percentages; run the pre-render balance pass.
-5. Choose font personality and fusion relation; choose one Type-led engine when applicable.
-6. Select one circular-dot system for pictorial subjects and visual-mode title transition, or for the entire Type-led primary title; use one coherent base rhythm with only limited macro structure-following changes.
-7. Assign color roles by authority and infer an Image Transform background from edge evidence before assuming white.
-8. Compile the prompt in the required order, then render with the selected capability. Declare generative redraw; use deterministic pixel-safe operations only for explicit strict requests.
-9. If a required capability or material contract is unavailable, return only prompt, recipe, and recommended specifications without claiming a render; never silently change execution path.
-10. Run the mode-appropriate blocking Material Gate first (Pictorial or Type), then the blocking Balance Gate; record actual `qg_evidence`, revise only the failed variable/instruction, and retry once.
-11. If either gate still fails after that targeted retry, return only prompt, recipe, and spec and state that no qualified image can be delivered.
-12. Return the final raster poster when created, the exact prompt, and the recipe only after both gates pass.
-
-## Output
-
-Return:
-
-**Generated Poster**
-
-[final raster image, when created]
-
-**Final Prompt**
-
-[exact prompt used]
-
-**Recipe**
-
-- Normalized Poster Spec summary, mode, source authority, and execution path
-- Pictorial or Type Material Contract (including any explicit alternative mark family), mark evidence, and preserved identity/color wording within mark-only reconstruction
-- Composition thesis, anchor, hierarchy, viewing path, quiet-space shape, edge pressure, ratio calibration, external quiet space, and title-to-image calibration
-- `mass_profile` optical ledger and `overlap_profile` region/depth/direction/title axis
-- Image strategy, title foreground overlap, fusion relation, font personality, glyph coverage, and selective transition details
-- Halftone system, local mark rhythm, background `edge evidence → inference`, and color roles
-- Supporting-copy state, exact text/provenance, preserved details, and strict source record when applicable
-- Type-led engine and semantic rationale, or `none` for other modes
-- Mode-appropriate Material Gate and Balance Gate: executed, pass/failure evidence from the actual visual inspection, and targeted retry outcome
-- Variation axis only when requested
-- Recommended output specifications when rendering was unavailable or no qualified image remained after a failed gate
-
-## Quality Gate
-
-Evaluate visually and against the Normalized Poster Spec; do not claim pixel-exact measurement unless separately measured. Run the mode-appropriate blocking Material Gate first, then the blocking Balance Gate, then the mode checks. Record actual observations in `qg_evidence`; a prompt promise is never a pass. Retry once only when the failing gate can be repaired by changing the one variable that caused it.
-
-### Blocking Material Gates (first)
-
-#### Pictorial Material Gate
-
-- For `Image Transform` and `Subject Generate`, cover the title and inspect representative shadows, midtones, and highlights: check separated dots at normal poster size; at thumbnail check only silhouette, key landmarks, and halftone reading.
-- Pass only when every pictorial subject is reconstructed exclusively from the selected discrete mark family: solid circular dots by default, or the explicitly requested alternative. Source colors appear only through mark fill/background and source identity only through silhouette, pose, key landmarks, and requested details. Mark-only permits purposeful mark-free/open zones. Record separated dots at normal poster size; at thumbnail record silhouette, key-landmark, and halftone-reading evidence rather than requiring every dot to remain visible.
-- Fail immediately if any `continuous photo pixels/underlay`, `smooth painted/tonal regions` or `continuous gradients`, `fine stippling`, `print texture overlay` or overlay filter, unrequested mark family, random-symbol mosaic, or original continuous layer under the marks is visible. Also fail for excessive coverage, near-touching/merged bubble-cell/perforation clusters, many adjacent sizes or unrelated local screens, no internal breathing room, secondary texture/background noise encoded without purpose, or shadows made both larger and denser by default. Treat engraving, crosshatching, or printmaking lines as failures unless the user explicitly selected a line-screen system; fail rigid global grids and perfectly straight rows through meaningful contours unless a mechanical grid was requested. Do not deliver a failed image.
-- If this gate fails, make one targeted retry changing only the cause. If it still fails, return only the prompt, recipe, and spec, and state that no qualified image can be delivered.
-
-#### Type Material Gate
-
-- For `Type-led`, inspect the complete primary title at normal poster size and thumbnail size before the Balance Gate. The supplied words must be visibly reconstructed from the selected ASCII/halftone marks (solid filled circular dots by default), with exact glyph contours, counters, strokes, and reading order recoverable or intentionally transformed by the recorded engine.
-- Fail immediately if any primary word reads primarily as a conventional solid/vector fill, if dots are merely texture over or behind an intact solid glyph, if the mark field is limited to background/outline while glyph interiors remain continuous, or if the selected creative engine is unrelated to glyph structure. A font skeleton may guide the mark field but cannot remain as a continuous final surface. Supporting copy is exempt and must remain ordinary, clear text.
-- Fail if Type-led mark centers form one uniform global grid, perfectly straight rows/columns, or uniform spacing/diameter unrelated to glyph contours, unless the user explicitly requested a mechanical grid. Use coherent controlled irregularity tied to stems, counters, terminals, and the selected engine; do not use random scatter.
-- If this gate fails, make one targeted retry changing only the cause. If it still fails, return only the prompt, recipe, and spec, and state that no qualified image can be delivered.
-
-The selected Material Gate is blocking; never mark Type-led material compliance as `not applicable` merely because it has no pictorial subject.
-
-### Blocking Balance Gate (after Material Gate)
-
-- Inspect the full render and thumbnail with title on and off, in color and grayscale, and at edge/direction views. Use the recorded optical ledger and overlap profile, not a mathematical centroid.
-- Pass intentional asymmetry only when the first focus is clear, the counterweight brings the eye back, quiet space has a deliberate shape, direction vectors are explainable, and the point field leaves internal breathing room.
-- Fail imbalance when a secondary element steals focus, the eye path exits the frame, weight stacks on one side without a reason, residual blank space has no shape, the title merely tangents/crops an edge, or an undeclared side carries dense dots, high saturation, or edge pull. Also fail pictorial overcoverage that makes the subject feel crowded even when its silhouette remains readable.
-- If this gate fails, change only the single variable causing the failure and retry once. If it still fails, return only the prompt, recipe, and spec and state that no qualified image can be delivered.
-
-### All modes
-
-- Exactly one mode and primary authority are evident; no unrelated subject or secondary visual source appears.
-- The thesis is visible in anchor, hierarchy, direction/tension, viewing path, quiet-space shape, edge pressure, asymmetry, and purposeful external quiet space (approximately `55%–65%` as calibration only); no dead gap separates image and title.
-- For `Image Transform` and `Subject Generate`, title is foreground/above image, actually crosses the image or halftone outer edge, and its visual mass relative to image is calibrated near `0.4–0.6` without treating that ratio as a guarantee or harming the thesis. It is not merely below or beside the image.
-- Font personality is specific, theme-linked, and explained by width, weight, contour, rhythm, terminals, and script coverage; a neutral-sans swap would lose the rationale. All glyphs, including CJK, render without tofu, garbling, substitutions, clipping, or order errors.
-- Exact title identity is unchanged. Display text is `clear` or intentionally `expressive/faded`; Type-led art remains tied to glyphs and its selected engine; supporting copy is always clear.
-- Every pictorial subject uses solid filled circular dots by default, or one explicitly requested alternative mark family; the selected marks use a coherent base rhythm with purposeful open zones, remain separated at normal poster size, and show silhouette/key landmarks/halftone reading at thumbnail. A Type-led title is itself mark-constructed under the Type Material Gate.
-- For visual modes, any title transition is selective and local: 80%–90% of total title ink remains continuous solid glyphs and 10%–20% may use the same mark family in a specified contact region, measured as `transition ink area ÷ total title ink area`; it fades size/spacing/density along a composition-chosen axis, preserves a per-word anchor unless abstraction is authorized, and uses no blur, haze, opacity wash, glow, or fixed right/bottom fade. Do not rasterize the entire visual-mode title unless explicitly requested.
-- No thin white keyline, inner/outer stroke, matte fringe, halo/glow, faux knockout, contrast white gap, bright outline-like anti-alias edge, or shadow appears; text edge and fill colors match.
-- Color roles follow the stated authority order with no hard palette-count rule and no random accent; visual-mode title and transition colors inherit active palette/source/subject roles, and no unrequested panel or color block appears. Supporting copy uses an existing neutral role.
-- Supporting-copy state is honored exactly: required verbatim, allowed at most 1–2 authorized/user-provided lines, forbidden omitted. Material contracts, mass/overlap profiles, prompt, recipe, gates, and output agree on every claimed feature; an inconsistency fails.
-
-### Image Transform
-
-- Removing the title still reveals an image derived from the uploaded source, with identity, major objects, perspective, composition, spatial relationships, pose, and requested details recognizable **within mark-only reconstruction**.
-- `Generative Restyle` explicitly declares redraw and makes no exact-pixel claim. `Pixel-safe / Strict Raster Transform` proves source identifier, dimensions, hash, complete source or approved crop, and deterministic operations; if any strict check fails, the result fails rather than being relabeled or silently substituted.
-- Source edges were inspected before a white default. The recipe records `edge evidence → background`; dark-edge/tube/frame/vignette extension retains a central bright region when supported and never creates a second ring. Black quiet regions count as negative space.
-
-### Subject Generate
-
-- The generated subject is the sole pictorial authority and its defining anatomy, contour, structure, attributes, and action remain recognizable **within mark-only reconstruction**. Natural groups vary intentionally; a single subject is not copied into an equal-weight icon grid.
-
-### Type-led
-
-- Exact supplied text is the primary visual and is visibly constructed from the selected ASCII/halftone marks; contours, counters, strokes, and order remain recoverable or are intentionally transformed under the recorded `expressive/faded` treatment. No pictorial subject, conventional solid/vector typography, solid glyph with dots merely overlaid/behind, or conventional title-over-texture treatment appears.
-- Exactly one listed creative engine is named and semantically justified. The engine operates on the mark field inside the glyphs; its marks remain related to stems, counters, terminals, and reading order rather than becoming irrelevant random texture.
+If a blocking gate still fails after one targeted retry, do not deliver the failed image as successful.
